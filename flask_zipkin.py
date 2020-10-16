@@ -70,7 +70,8 @@ class Zipkin(object):
         return self
 
     def _should_use_token(self, view_func):
-        return (view_func not in self._exempt_views)
+        view_location = '{0}.{1}'.format(view_func.__module__, view_func.__name__)
+        return (view_location not in self._exempt_views)
 
     def _before_request(self):
         if self._disable:
